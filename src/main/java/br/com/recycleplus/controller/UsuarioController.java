@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.recycleplus.DTO.Credendial;
@@ -17,6 +18,7 @@ import br.com.recycleplus.models.Usuario;
 import br.com.recycleplus.repository.UsuarioRepository;
 
 @RestController
+@RequestMapping("/user")
 public class UsuarioController {
 
     @Autowired
@@ -29,20 +31,19 @@ public class UsuarioController {
 
     }
 
-    @GetMapping("/user")
+    @GetMapping
     public List<Credendial> getAllLogin() {
 
         return repository.findAll().stream().map(u -> new Credendial(u.getId(), u.getEmail(), u.getSenha())).toList();
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public ResponseEntity<Usuario> register(@RequestBody Credendial credencial) {
-        Usuario novo = new Usuario(credencial.email(), credencial.senha());
 
-        return ResponseEntity.ok().body(repository.save(novo));
+        return ResponseEntity.ok().body(repository.save(new Usuario(credencial.email(), credencial.senha())));
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario update) {
         Usuario usuarioUpdate = getUsuario(id);
 
