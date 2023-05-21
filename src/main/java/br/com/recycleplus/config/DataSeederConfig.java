@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import br.com.recycleplus.models.Endereco;
 import br.com.recycleplus.models.Material;
 import br.com.recycleplus.models.Tipo;
 import br.com.recycleplus.models.Transacao;
 import br.com.recycleplus.models.Usuario;
+import br.com.recycleplus.repository.EnderecoRepository;
 import br.com.recycleplus.repository.MaterialRepository;
 import br.com.recycleplus.repository.TransacaoRepository;
 import br.com.recycleplus.repository.UsuarioRepository;
@@ -28,6 +30,9 @@ public class DataSeederConfig implements CommandLineRunner {
 
         @Autowired
         MaterialRepository mRepository;
+
+        @Autowired
+        EnderecoRepository eRepository;
 
         @Override
         public void run(String... args) throws Exception {
@@ -114,6 +119,18 @@ public class DataSeederConfig implements CommandLineRunner {
                                                 .build()
 
                 ));
+
+                eRepository.saveAll(List.of(
+                                Endereco
+                                                .builder().logradouro("Rua dos loucos")
+                                                .numero(0)
+                                                .cep("1234567")
+                                                .bairro("Vila Mariana")
+                                                .estado("São Paulo")
+                                                .cidade("São paulo")
+                                                .sigla("SP")
+                                                .idUsuario(1)
+                                                .build()));
         }
 
 }

@@ -325,7 +325,8 @@ estado|String|sim|Campo para armazenar o estado
 cidade|String|sim|Campo para armazenar a cidade
 bairro|String|sim|Campo para armazenar o bairro
 logradouro|String|sim|Campo para armazenar o lougradouro
-
+sigla|String|sim|Campo para armazenar a sigla do estado
+idUsuario|Integer|sim|Campo para armazenar o ID do usuario
 **Exemplo de payload**
 
 ```JSON

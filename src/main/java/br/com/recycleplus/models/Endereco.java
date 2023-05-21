@@ -22,11 +22,12 @@ public class Endereco {
     private Integer id;
     private String logradouro;
     private Integer numero;
-    private Integer cep;
+    private String cep;
     private String bairro;
     private String cidade;
     private String estado;
     private String sigla;
+
 
     @JoinColumn(name = "ID_USUARIO", nullable = false)
     private Integer idUsuario;

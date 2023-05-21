@@ -29,8 +29,7 @@ public class EnderecoController {
     @PutMapping("{id}")
     public ResponseEntity<Endereco> updatebyIdUsuario(@PathVariable Long idUsuario, @RequestBody Endereco novo) {
 
-        Endereco update = repository.findByIdUsuario(idUsuario)
-                .orElseThrow(() -> new RestNotFoundException("Usuario nao encontrado"));
+        Endereco update = getByIdUsuario(idUsuario);
 
         novo.setId(update.getId());
         novo.setIdUsuario(update.getIdUsuario());
@@ -38,5 +37,10 @@ public class EnderecoController {
         repository.save(new Endereco(novo));
 
         return ResponseEntity.ok().body(novo);
+    }
+
+    private Endereco getByIdUsuario(Long idUsuario) {
+        return repository.findByIdUsuario(idUsuario)
+                .orElseThrow(() -> new RestNotFoundException("Usuario nao encontrado"));
     }
 }
