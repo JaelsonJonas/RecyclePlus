@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.recycleplus.DTO.TransactionData;
 import br.com.recycleplus.models.Transacao;
 import br.com.recycleplus.repository.TransacaoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/transactions")
@@ -28,7 +29,7 @@ public class TransacaoController {
     TransacaoRepository repository;
 
     @PostMapping
-    public ResponseEntity<Transacao> save(@RequestBody Transacao novaTransacao) {
+    public ResponseEntity<Transacao> save(@RequestBody @Valid Transacao novaTransacao) {
 
         repository.save(novaTransacao);
 

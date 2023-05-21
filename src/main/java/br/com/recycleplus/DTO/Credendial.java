@@ -1,6 +1,9 @@
 package br.com.recycleplus.DTO;
 
-public record Credendial(Long id,String email, String senha) {
+import jakarta.validation.constraints.NotBlank;
 
+public record Credendial(
+    @NotBlank String email, 
+    @NotBlank String senha) {
 
 }

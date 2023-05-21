@@ -1,6 +1,10 @@
 package br.com.recycleplus.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -34,24 +38,41 @@ public class UsuarioController {
     UsuarioService service;
 
     @PostMapping
-    public ResponseEntity<Usuario> register(@RequestBody @Valid Usuario newUser) {
+    public ResponseEntity<Object> register(@RequestBody @Valid Usuario usuarioNovo) {
 
-        repository.save(newUser);
+        ExampleMatcher em = ExampleMatcher.matching().withMatcher("DS_LOGIN",
+                usuario -> usuario.exact());
+        Example<Usuario> criterioDeBusca = Example.of(new Usuario(usuarioNovo.getEmail().toLowerCase()), em);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+        Optional<Usuario> optUsr = repository.findOne(criterioDeBusca);
+
+        if (optUsr.isPresent()) {
+            return ResponseEntity.badRequest()
+                    .body(new ReturnAPI("Desculpe, login já em uso. Por favor, tente outro."));
+        }
+
+        repository.save(usuarioNovo);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioNovo);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody Credendial credencial) {
+    public ResponseEntity<ReturnAPI> login(@RequestBody Credendial credencial) {
 
-        return ResponseEntity.ok().body(repository.save(new Usuario(credencial.email(), credencial.senha())));
+        Optional<Usuario> usuarioConteiner = repository.findByEmailAndSenha(credencial.email(), credencial.senha());
+
+        if (usuarioConteiner.isPresent()) {
+            return ResponseEntity.ok().body(new ReturnAPI("Login realizado com sucesso!!"));
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ReturnAPI("usuario/senha invalido"));
 
     }
 
     @GetMapping("{id}")
     public ResponseEntity<UsuarioDTO> getbyId(@PathVariable Long id, @PageableDefault(size = 2) Pageable pageable) {
 
-        return ResponseEntity.ok(service.getWithEndereco(id, pageable));
+        return ResponseEntity.ok(getUsuarioDTO(id, pageable));
     }
 
     @PutMapping("{id}")
@@ -79,5 +100,9 @@ public class UsuarioController {
 
         return repository.findById(id).orElseThrow(() -> new RestNotFoundException("Usuario nao encontrado"));
 
+    }
+
+    private UsuarioDTO getUsuarioDTO(Long id, Pageable pageable) {
+        return service.getWithEndereco(id, pageable);
     }
 }

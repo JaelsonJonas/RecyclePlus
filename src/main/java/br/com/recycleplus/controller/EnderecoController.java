@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.recycleplus.exceptions.RestNotFoundException;
 import br.com.recycleplus.models.Endereco;
 import br.com.recycleplus.repository.EnderecoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/adress")
@@ -21,13 +22,13 @@ public class EnderecoController {
     EnderecoRepository repository;
 
     @PostMapping
-    public ResponseEntity<Endereco> save(@RequestBody Endereco novo) {
+    public ResponseEntity<Endereco> save(@RequestBody @Valid Endereco novo) {
 
         return ResponseEntity.ok().body(repository.save(novo));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Endereco> updatebyIdUsuario(@PathVariable Long idUsuario, @RequestBody Endereco novo) {
+    public ResponseEntity<Endereco> updatebyIdUsuario(@PathVariable Long idUsuario, @RequestBody @Valid Endereco novo) {
 
         Endereco update = getByIdUsuario(idUsuario);
 

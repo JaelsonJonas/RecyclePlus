@@ -89,8 +89,14 @@ public class Usuario {
     @OneToMany(mappedBy = "idUsuario", cascade = CascadeType.ALL)
     private List<Transacao> transactions;
 
+    public Usuario(String email) {
+        this.email = email;
+    }
+
     public Usuario(String email, String senha) {
         this.email = email;
         this.senha = senha;
     }
+
+    
 }

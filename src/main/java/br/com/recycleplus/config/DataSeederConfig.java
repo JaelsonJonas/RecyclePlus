@@ -142,7 +142,7 @@ public class DataSeederConfig implements CommandLineRunner {
                                                 .cidade("São paulo")
                                                 .sigla(Sigla.SP)
                                                 .status(Status.ATIVO)
-                                                .idUsuario(1)
+                                                .idUsuario(1l)
                                                 .build()));
         }
 

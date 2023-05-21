@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -37,7 +38,8 @@ public class Material {
     private String nome;
 
     @NotNull(message = "Informe um valor valido")
-    @Column(name = "VT_MATERIAl", nullable = false, length = 6)
+    @Min(value = 0 ,message = "Deve ser positivo")
+    @Column(name = "VT_MATERIAL", nullable = false, length = 6)
     private BigDecimal valor;
 
     @Enumerated(value = EnumType.STRING)

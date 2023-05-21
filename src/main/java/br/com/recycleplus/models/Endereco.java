@@ -1,5 +1,6 @@
 package br.com.recycleplus.models;
 
+import br.com.recycleplus.DTO.Adress;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -68,12 +69,12 @@ public class Endereco {
 
     @Enumerated(value = EnumType.STRING)
     @NotNull(message = "Status vazio ou invalido")
-    @Column(name = "ST_ENDERECO",nullable = false)
+    @Column(name = "ST_ENDERECO", nullable = false)
     private Status status;
 
     @NotNull(message = "Transação necessita de um Usuario")
     @JoinColumn(name = "ID_USUARIO", nullable = false)
-    private Integer idUsuario;
+    private Long idUsuario;
 
     public Endereco(Endereco e) {
         this.logradouro = e.getLogradouro();
@@ -83,5 +84,9 @@ public class Endereco {
         this.cidade = e.getCidade();
         this.estado = e.getEstado();
         this.sigla = e.getSigla();
+    }
+
+    public Adress toAdress() {
+        return new Adress(this);
     }
 }

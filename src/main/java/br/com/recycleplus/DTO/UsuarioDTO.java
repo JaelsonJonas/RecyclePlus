@@ -17,9 +17,12 @@ public record UsuarioDTO(
         Adress adress,
         List<TransactionData> transactions) {
 
+
     public UsuarioDTO(Usuario usuario, List<TransactionData> lista, Adress endereco) {
         this(usuario.getId(), usuario.getLogin(), usuario.getEmail(), usuario.getDocumento(), usuario.getTelefone(),
                 usuario.getDataNasc(), usuario.getGenero(),
                 endereco, lista);
     }
+
+    
 }
