@@ -3,6 +3,7 @@ package br.com.recycleplus.DTO;
 import java.time.LocalDate;
 import java.util.List;
 
+import br.com.recycleplus.models.Genero;
 import br.com.recycleplus.models.Usuario;
 
 public record UsuarioDTO(
@@ -12,7 +13,7 @@ public record UsuarioDTO(
         String documento,
         String telefone,
         LocalDate dataNasc,
-        String genero,
+        Genero genero,
         Adress adress,
         List<TransactionData> transactions) {
 

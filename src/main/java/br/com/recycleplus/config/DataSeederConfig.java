@@ -10,7 +10,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.recycleplus.models.Endereco;
+import br.com.recycleplus.models.Genero;
 import br.com.recycleplus.models.Material;
+import br.com.recycleplus.models.Sigla;
+import br.com.recycleplus.models.Status;
+import br.com.recycleplus.models.StatusTransacao;
 import br.com.recycleplus.models.Tipo;
 import br.com.recycleplus.models.Transacao;
 import br.com.recycleplus.models.Usuario;
@@ -38,10 +42,18 @@ public class DataSeederConfig implements CommandLineRunner {
         public void run(String... args) throws Exception {
 
                 repository.saveAll(List.of(
-                                Usuario.builder().login("joao.silva").email("joao.silva@email.com.br").senha("Senha123")
-                                                .nomeCompleto("João da Silva").documento("12345678900")
-                                                .telefone("11954323230")
-                                                .dataNasc(LocalDate.of(1990, 01, 01)).genero("Masculino").build()
+                                Usuario
+                                .builder()
+                                .login("joao.silva")
+                                .email("joao.silva@email.com.br")
+                                .senha("Senha123")
+                                .nomeCompleto("João da Silva")
+                                .documento("12345678900")
+                                .telefone("11954323230")
+                                .dataNasc(LocalDate.of(1990, 01, 01))
+                                .genero(Genero.MASCULINO)
+                                .status(Status.ATIVO)
+                                .build()
 
                 ));
 
@@ -49,42 +61,42 @@ public class DataSeederConfig implements CommandLineRunner {
                                 Transacao.builder()
                                                 .data(LocalDate.now())
                                                 .valor(new BigDecimal(5000))
-                                                .tipo("Enviado")
+                                                .tipo(StatusTransacao.ENVIADO)
                                                 .horario(LocalTime.now())
                                                 .idUsuario(1l)
                                                 .build(),
                                 Transacao.builder()
                                                 .data(LocalDate.now())
                                                 .valor(new BigDecimal(1000))
-                                                .tipo("Enviado")
+                                                .tipo(StatusTransacao.ENVIADO)
                                                 .horario(LocalTime.now())
                                                 .idUsuario(1l)
                                                 .build(),
                                 Transacao.builder()
                                                 .data(LocalDate.now())
                                                 .valor(new BigDecimal(1235))
-                                                .tipo("Recebido")
+                                                .tipo(StatusTransacao.RECEBIDO)
                                                 .horario(LocalTime.now())
                                                 .idUsuario(1l)
                                                 .build(),
                                 Transacao.builder()
                                                 .data(LocalDate.now())
                                                 .valor(new BigDecimal(40))
-                                                .tipo("Enviado")
+                                                .tipo(StatusTransacao.RECEBIDO)
                                                 .horario(LocalTime.now())
                                                 .idUsuario(1l)
                                                 .build(),
                                 Transacao.builder()
                                                 .data(LocalDate.now())
                                                 .valor(new BigDecimal(345))
-                                                .tipo("Enviado")
+                                                .tipo(StatusTransacao.ENVIADO)
                                                 .horario(LocalTime.now())
                                                 .idUsuario(1l)
                                                 .build(),
                                 Transacao.builder()
                                                 .data(LocalDate.now())
                                                 .valor(new BigDecimal(5000))
-                                                .tipo("Enviado")
+                                                .tipo(StatusTransacao.ENVIADO)
                                                 .horario(LocalTime.now())
                                                 .idUsuario(1l)
                                                 .build()
@@ -128,7 +140,8 @@ public class DataSeederConfig implements CommandLineRunner {
                                                 .bairro("Vila Mariana")
                                                 .estado("São Paulo")
                                                 .cidade("São paulo")
-                                                .sigla("SP")
+                                                .sigla(Sigla.SP)
+                                                .status(Status.ATIVO)
                                                 .idUsuario(1)
                                                 .build()));
         }
