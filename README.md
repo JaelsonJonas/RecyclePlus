@@ -60,7 +60,7 @@ foto|String|não|Campo para armazenar o caminho que a foto foi salva em nosso se
       "documento": "123456.789-00",
       "telefone": "(11) 98765-4321",
       "dataNasc": "1990-01-01",
-      "sexo": "masculino",
+      "genero": "masculino",
       "foto": "https://www.exemplo.com/fotos/joao.silva.jpg"
    }
 ```
@@ -68,7 +68,7 @@ foto|String|não|Campo para armazenar o caminho que a foto foi salva em nosso se
 
 | código | descrição
 |-|-
-| 200 | usuario cadastrado
+| 201 | usuario cadastrado
 | 400 | Campo invalido (A API vai informar qual campo esta incorreto)
 
 
@@ -188,20 +188,19 @@ foto|String|não|Campo para armazenar o caminho que a foto foi salva em nosso se
 
 <br/>
 
-`POST` /password-reset
+`POST` /password-reset{id}
 
 <br/>
 
 **Campos da requisição**
 |   Campo  |    tipo    |   Obrigatorio | Descrição
 |:-:|:-:|:-:|:-:
-email|String|sim|campo reponsavel por armazenar o e-mail do usuario
-
+senha|String|sim|campo reponsavel por armazenar a nova senha 
 **Exemplo de payload**
 
 ```JSON
 {
-    "email":"jow@fiap.com.br"
+    "senha":"12345"
 }
 ```
 **Códigos de Respostas**
@@ -225,15 +224,15 @@ email|String|sim|campo reponsavel por armazenar o e-mail do usuario
 |:-:|:-:|:-:|:-:
 data|LocalDate|sim|campo para armazenar a data
 valor|BigDecimal|sim|campo para armazenar o valor
-enviadoRecebido|String|sim|campo para armazenar o tipo, se é enviado ou recebido.
-horaio|LocalTime|sim|campo para armazenar o horario
+tipo|String|sim|campo para armazenar o tipo, se é enviado ou recebido.
+horario|LocalTime|sim|campo para armazenar o horario
 **Exemplo de corpo da resposta**
 
 ```JSON
 {
   "data": "2023-04-08",
   "valor": 1500.00,
-  "enviadoRecebido": "enviado",
+  "tipo": "enviado",
   "horario": "14:30:00"
 }
 ```
@@ -241,7 +240,7 @@ horaio|LocalTime|sim|campo para armazenar o horario
 
 | código | descrição
 |-|-
-| 200 | Extrato coletado
+| 201 | Extrato coletado
 | 404 | Nenhuma transação ate o momento
 
 ### Extrato
@@ -285,7 +284,9 @@ cep|String|sim|Campo para armazenar o CEP
 estado|String|sim|Campo para armazenar o estado
 cidade|String|sim|Campo para armazenar a cidade
 bairro|String|sim|Campo para armazenar o bairro
-rua|String|sim|Campo para armazenar o lougradouro
+logradouro|String|sim|Campo para armazenar o lougradouro
+sigla|String|sim|Campo para armazenar a sigla do estado
+idUsuario|Integer|sim|Campo para armazenar o ID do usuario
 
 **Exemplo de payload**
 
@@ -295,14 +296,16 @@ rua|String|sim|Campo para armazenar o lougradouro
       "CEP": "12345-678",
       "bairro": "Vila Mariana",
       "estado": "São Paulo",
-      "cidade": "São Paulo"
+      "cidade": "São Paulo",
+      "sigla": "SP",
+      "idUsuario": 1
    }
 ```
 **Códigos de Respostas**
 
 | código | descrição
 |-|-
-| 200 | Endereço cadastrado!
+| 201 | Endereço cadastrado!
 | 400 | Campo invalido (A API vai informar qual campo esta incorreto)
 
 
@@ -321,17 +324,19 @@ cep|String|sim|Campo para armazenar o CEP
 estado|String|sim|Campo para armazenar o estado
 cidade|String|sim|Campo para armazenar a cidade
 bairro|String|sim|Campo para armazenar o bairro
-rua|String|sim|Campo para armazenar o lougradouro
+logradouro|String|sim|Campo para armazenar o lougradouro
 
 **Exemplo de payload**
 
 ```JSON
    {
-      "logradouro": "Rua dos loucos, 0",
+      "logradouro": "Rua dos loucos",
+      "numero": 0,
       "CEP": "12345-678",
       "bairro": "Capão Redondo",
       "estado": "São Paulo",
-      "cidade": "São Paulo"
+      "cidade": "São Paulo",
+      "sigla": "SP"
    }
 ```
 **Códigos de Respostas**
@@ -355,7 +360,7 @@ rua|String|sim|Campo para armazenar o lougradouro
 
 ```JSON
 {
-  "materiais":[
+  [
     {
         "nome": "Papelão",
         "valor": "0.12",
