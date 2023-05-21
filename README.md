@@ -60,7 +60,7 @@ foto|String|não|Campo para armazenar o caminho que a foto foi salva em nosso se
       "documento": "123456.789-00",
       "telefone": "(11) 98765-4321",
       "dataNasc": "1990-01-01",
-      "genero": "masculino",
+      "genero": "MASCULINO",
       "foto": "https://www.exemplo.com/fotos/joao.silva.jpg"
    }
 ```
@@ -115,24 +115,39 @@ senha|String|sim|Campo responsavel por armazenar a senha do usuario
 
 ```JSON
     {
-      "login": "joao.silva",
-      "email": "joao.silva@email.com",
-      "senha": "senha123",
-      "nomeCompleto": "João da Silva",
-      "documento": "123456.789-00",
-      "telefone": "(11) 98765-4321",
-      "dataNasc": "1990-01-01",
-      "sexo": "masculino",
-      "foto": "https://www.exemplo.com/fotos/joao.silva.jpg",
-      "endereco": {
-            "id":1
-            "logradouro": "Rua Domingos de Morais, 1234",
-            "CEP": "12345-678",
-            "bairro": "Vila Mariana",
-            "estado": "São Paulo",
-            "cidade": "São Paulo"
-      }
-   }
+    "id": 1,
+    "login": "joao.silva",
+    "email": "joao.silva@email.com.br",
+    "documento": "12345678900",
+    "telefone": "11954323230",
+    "dataNasc": "1990-01-01",
+    "genero": "MASCULINO",
+    "adress": {
+        "logradouro": "Rua dos loucos",
+        "numero": 0,
+        "cep": "1234567",
+        "bairro": "Vila Mariana",
+        "cidade": "São paulo",
+        "estado": "São Paulo",
+        "sigla": "SP"
+    },
+    "transactions": [
+        {
+            "id": 1,
+            "data": "2023-05-21",
+            "valor": 5000.00,
+            "horario": "15:48:40",
+            "tipo": "ENVIADO"
+        },
+        {
+            "id": 2,
+            "data": "2023-05-21",
+            "valor": 1000.00,
+            "horario": "15:48:40",
+            "tipo": "ENVIADO"
+        }
+    ]
+}
 ```
 **Códigos de Respostas**
 
@@ -286,13 +301,15 @@ cidade|String|sim|Campo para armazenar a cidade
 bairro|String|sim|Campo para armazenar o bairro
 logradouro|String|sim|Campo para armazenar o lougradouro
 sigla|String|sim|Campo para armazenar a sigla do estado
+numero|Integer|sim|Campo para armazenar o numero do logradouro
 idUsuario|Integer|sim|Campo para armazenar o ID do usuario
 
 **Exemplo de payload**
 
 ```JSON
    {
-      "logradouro": "Rua Domingos de Morais, 1234",
+      "logradouro": "Rua Domingos de Morais",
+      "numero": 0,
       "CEP": "12345-678",
       "bairro": "Vila Mariana",
       "estado": "São Paulo",
