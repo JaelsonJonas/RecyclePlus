@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,6 +29,13 @@ public class RestExceptionHandler {
     public ResponseEntity<ReturnAPI> RestNotFoundHandler(RestNotFoundException e) {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ReturnAPI(e.getMessage()));
+
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ReturnAPI> HttpRequestMethodNotSupportedHandler(HttpRequestMethodNotSupportedException e){
+      
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(new ReturnAPI(e.getMessage()));
 
     }
 

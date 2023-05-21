@@ -69,10 +69,16 @@ public class UsuarioController {
 
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/all/{id}")
     public ResponseEntity<UsuarioDTO> getbyId(@PathVariable Long id, @PageableDefault(size = 2) Pageable pageable) {
 
         return ResponseEntity.ok(getUsuarioDTO(id, pageable));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Usuario> getbyId(@PathVariable Long id) {
+
+        return ResponseEntity.ok(getUsuario(id));
     }
 
     @PutMapping("{id}")
